@@ -23,7 +23,7 @@ FROM alpine:3.18
 RUN apk --no-cache add ca-certificates
 
 # 从构建阶段复制编译好的二进制文件
-RUN mkdir /app
+RUN mkdir /app && touch /app/.user.txt
 COPY --from=builder /telegram-bot /app/telegram-bot
 
 # 创建非root用户

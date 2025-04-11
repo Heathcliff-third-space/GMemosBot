@@ -76,7 +76,7 @@ func saveUsers() error {
 	})
 
 	data := strings.Join(lines, "\n")
-	return os.WriteFile(userFile, []byte(data), 0600) // 只允许所有者读写
+	return os.WriteFile(userFile, []byte(data), 0644)
 }
 
 // AddOrUpdateUser 添加或更新用户
