@@ -65,7 +65,7 @@ func getMemoInfo() {
 func ValidateToken(token string, uid int64) (*AuthResult, error) {
 	apiURL := serverBaseUrl + "/api/v1/auth/status"
 
-	respData, err := util.HttpRequest(apiURL, "GET", token, nil)
+	respData, err := util.HttpRequest(apiURL, "POST", token, nil)
 	if err != nil {
 		return nil, err
 	}
