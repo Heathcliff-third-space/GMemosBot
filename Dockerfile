@@ -23,7 +23,7 @@ FROM alpine:3.18
 RUN apk --no-cache add ca-certificates
 
 # 从构建阶段复制编译好的二进制文件
-RUN adduser -D -g '' botuser && mkdir /app &&  chown -R  botuser  /app
+RUN adduser -D -g '' botuser && mkdir /app/data &&  chown -R  botuser  /app
 COPY --from=builder /telegram-bot /app/telegram-bot
 
 USER botuser
