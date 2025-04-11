@@ -25,10 +25,6 @@ RUN apk --no-cache add ca-certificates
 # 从构建阶段复制编译好的二进制文件
 COPY --from=builder /telegram-bot /telegram-bot
 
-# 设置环境变量(可选)
-ENV TELEGRAM_BOT_TOKEN=""
-ENV LOG_LEVEL="info"
-
 # 创建非root用户
 RUN adduser -D -g '' botuser
 USER botuser

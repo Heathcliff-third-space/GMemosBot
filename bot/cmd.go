@@ -7,11 +7,11 @@ import (
 	"strings"
 )
 
-func handleStartCmd(msg *tgbotapi.Message, reply tgbotapi.MessageConfig) {
+func handleStartCmd(msg *tgbotapi.Message, reply *tgbotapi.MessageConfig) {
 	reply.Text = "这是一个简单的基于Memo的Bot"
 }
 
-func handleInfoCmd(msg *tgbotapi.Message, reply tgbotapi.MessageConfig) {
+func handleInfoCmd(msg *tgbotapi.Message, reply *tgbotapi.MessageConfig) {
 	userName, err := memo.UserInfo(msg.From.ID)
 	if err != nil {
 		reply.Text = fmt.Sprintf("❌ 用户信息获取失败 %v", err)
@@ -20,7 +20,7 @@ func handleInfoCmd(msg *tgbotapi.Message, reply tgbotapi.MessageConfig) {
 	}
 }
 
-func handleTokenCmd(msg *tgbotapi.Message, reply tgbotapi.MessageConfig) {
+func handleTokenCmd(msg *tgbotapi.Message, reply *tgbotapi.MessageConfig) {
 	args := strings.Fields(msg.Text)
 	if len(args) < 2 {
 		reply.Text = "使用方法: /token <您的token>"
@@ -38,6 +38,6 @@ func handleTokenCmd(msg *tgbotapi.Message, reply tgbotapi.MessageConfig) {
 	}
 }
 
-func handleDefaultCmd(msg *tgbotapi.Message, reply tgbotapi.MessageConfig) {
+func handleDefaultCmd(msg *tgbotapi.Message, reply *tgbotapi.MessageConfig) {
 	reply.Text = "未知命令，发送 /help 查看可用命令"
 }

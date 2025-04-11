@@ -83,13 +83,13 @@ func handleCommand(msg *tgbotapi.Message) {
 
 	switch msg.Command() {
 	case "start":
-		handleStartCmd(msg, reply)
+		handleStartCmd(msg, &reply)
 	case "token":
-		handleTokenCmd(msg, reply)
+		handleTokenCmd(msg, &reply)
 	case "info":
-		handleInfoCmd(msg, reply)
+		handleInfoCmd(msg, &reply)
 	default:
-		handleDefaultCmd(msg, reply)
+		handleDefaultCmd(msg, &reply)
 	}
 
 	if _, err := bot.Send(reply); err != nil {
