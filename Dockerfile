@@ -23,11 +23,9 @@ FROM alpine:3.18
 RUN apk --no-cache add ca-certificates
 
 # 从构建阶段复制编译好的二进制文件
-RUN mkdir /app && touch /app/.user.txt
+RUN adduser -D -g '' botuser && mkdir /app &&  chown -R  botuser  /app
 COPY --from=builder /telegram-bot /app/telegram-bot
 
-# 创建非root用户
-RUN adduser -D -g '' botuser && chown -R  botuser  /app
 USER botuser
 
 # 设置入口点

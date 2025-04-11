@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	userFile = "./.user.txt"
+	userFile = "/app/.user.txt"
 )
 
 type User struct {
