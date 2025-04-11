@@ -27,7 +27,7 @@ RUN mkdir /app
 COPY --from=builder /telegram-bot /app/telegram-bot
 
 # 创建非root用户
-RUN adduser -D -g '' botuser && chown -R /app botuser
+RUN adduser -D -g '' botuser && chown -R  botuser  /app
 USER botuser
 
 # 设置入口点
