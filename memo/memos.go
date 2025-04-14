@@ -116,7 +116,9 @@ func CreateMemo(content string, resources []*Resource, uid int64) (*Memo, error)
 
 	var builder strings.Builder
 	builder.WriteString(tag)
-	if !strings.HasPrefix(content, "#") {
+	if strings.HasPrefix(content, "#") {
+		builder.WriteString(" ")
+	} else {
 		builder.WriteString("\n")
 	}
 	builder.WriteString(content)

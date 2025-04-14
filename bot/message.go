@@ -45,8 +45,7 @@ func parseTextContent(msg *tgbotapi.Message) string {
 			write(msg.Caption + "\n")
 		}
 	}
-
-	return builder.String()
+	return strings.TrimSpace(builder.String())
 }
 
 func processForwardInfo(msg *tgbotapi.Message) string {
