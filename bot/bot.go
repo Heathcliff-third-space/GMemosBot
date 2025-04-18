@@ -61,8 +61,9 @@ func Start() {
 		createdMemo, err := memo.CreateMemo(textContent, attachments, msg.From.ID)
 		if err != nil {
 			replyContent(msg, fmt.Sprintf("操作失败: %v", err))
+		} else {
+			replyContent(msg, fmt.Sprintf("创建成功！%v", createdMemo.Name))
 		}
-		replyContent(msg, fmt.Sprintf("创建成功！%v", createdMemo.Name))
 	}
 }
 

@@ -29,11 +29,7 @@ func HttpRequest(apiURL string, method string, token string, body io.Reader) ([]
 		return nil, fmt.Errorf("请求memos服务失败: %v", err)
 	}
 
-	// 检查响应状态码
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("memos服务返回错误状态码: %d", resp.StatusCode)
-	}
-
+	data, err := io.ReadAll(resp.Body)
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
@@ -41,9 +37,9 @@ func HttpRequest(apiURL string, method string, token string, body io.Reader) ([]
 		}
 	}(resp.Body)
 
-	data, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("读取响应失败: %v", err)
+	// 检查响应状态码
+	if resp.StatusCode != http.StatusOK || err != nil {
+		return nil, fmt.Errorf("memos服务返回错误状态码: %d %v", resp.StatusCode, string(data))
 	}
 
 	return data, nil

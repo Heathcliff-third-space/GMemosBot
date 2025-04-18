@@ -133,6 +133,10 @@ func CreateMemo(content string, resources []*Resource, uid int64) (*Memo, error)
 	}
 
 	respData, err := util.HttpRequest(apiURL, "POST", user.Token, &buf)
+	if err != nil {
+		return nil, fmt.Errorf("memos创建失败: %v %v", err, string(respData))
+	}
+
 	result := new(Memo)
 	if err := json.Unmarshal(respData, &result); err != nil {
 		return nil, fmt.Errorf("memos创建失败: %v", err)

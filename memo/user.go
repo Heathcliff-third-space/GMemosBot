@@ -81,7 +81,7 @@ func saveUsers() error {
 
 // AddOrUpdateUser 添加或更新用户
 func AddOrUpdateUser(user *User) error {
-	userMap.LoadOrStore(user.ID, user)
+	userMap.Swap(user.ID, user)
 	return saveUsers()
 }
 
