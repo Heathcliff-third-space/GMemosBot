@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -20,7 +21,7 @@ func HttpRequest(apiURL string, method string, token string, body io.Reader) ([]
 	}
 
 	if token != "" {
-		req.Header.Set("Authorization", "Bearer "+token)
+		req.Header.Set("Authorization", "Bearer "+strings.TrimSpace(token))
 	}
 
 	// 发送请求
