@@ -17,16 +17,19 @@ func HttpRequest(apiURL string, method string, token string, body io.Reader) ([]
 	// 创建新的请求
 	req, err := http.NewRequest(method, apiURL, body)
 	if err != nil {
+		log.Printf("请求memos服务失败: req = %v, token = %s, err = %v", req, token, err)
 		return nil, fmt.Errorf("创建请求失败: %v", err)
 	}
 
 	if token != "" {
-		req.Header.Set("Authorization", "Bearer "+strings.TrimSpace(token))
+		token = strings.TrimSpace(token)
+		req.Header.Set("Authorization", "Bearer "+token)
 	}
 
 	// 发送请求
 	resp, err := client.Do(req)
 	if err != nil {
+		log.Printf("请求memos服务失败: req = %v, resp = %v, token = %s, err = %v", req, resp, token, err)
 		return nil, fmt.Errorf("请求memos服务失败: %v", err)
 	}
 
@@ -40,6 +43,7 @@ func HttpRequest(apiURL string, method string, token string, body io.Reader) ([]
 
 	// 检查响应状态码
 	if resp.StatusCode != http.StatusOK || err != nil {
+		log.Printf("请求memos服务失败: req = %v, resp = %v, token = %s, err = %v", req, resp, token, err)
 		return nil, fmt.Errorf("memos服务返回错误状态码: %d %v", resp.StatusCode, string(data))
 	}
 
