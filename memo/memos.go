@@ -41,11 +41,11 @@ type Resource struct {
 	FileId   string `json:"fileId"`
 }
 
-var serverBaseUrl string
+var ServerBaseUrl string
 
 func Start() {
-	serverBaseUrl = os.Getenv("MEMOS_SERVER_URL")
-	if serverBaseUrl == "" {
+	ServerBaseUrl = os.Getenv("MEMOS_SERVER_URL")
+	if ServerBaseUrl == "" {
 		log.Fatal("MEMOS_SERVER_URL 环境变量未设置")
 	}
 
@@ -53,7 +53,7 @@ func Start() {
 }
 
 func getMemoInfo() {
-	apiURL := serverBaseUrl + "/api/v1/workspace/profile"
+	apiURL := ServerBaseUrl + "/api/v1/workspace/profile"
 	respData, err := util.HttpRequest(apiURL, "GET", "", nil)
 	if err != nil {
 		log.Fatalf("memo初始化失败 %v", err)
@@ -63,7 +63,7 @@ func getMemoInfo() {
 }
 
 func ValidateToken(token string, uid int64) (*AuthResult, error) {
-	apiURL := serverBaseUrl + "/api/v1/auth/status"
+	apiURL := ServerBaseUrl + "/api/v1/auth/status"
 
 	respData, err := util.HttpRequest(apiURL, "POST", token, nil)
 	if err != nil {
@@ -107,7 +107,7 @@ func UserInfo(uid int64) (string, error) {
 
 func CreateMemo(content string, resources []*Resource, uid int64) (*Memo, error) {
 
-	apiURL := serverBaseUrl + "/api/v1/memos"
+	apiURL := ServerBaseUrl + "/api/v1/memos"
 
 	user, ok := FindUser(uid)
 	if !ok {
@@ -151,7 +151,7 @@ func CreateMemo(content string, resources []*Resource, uid int64) (*Memo, error)
 }
 
 func createMemoResource(user *User, memoName string, resources []*Resource) error {
-	apiURL := serverBaseUrl + "/api/v1/resources"
+	apiURL := ServerBaseUrl + "/api/v1/resources"
 
 	for _, resource := range resources {
 

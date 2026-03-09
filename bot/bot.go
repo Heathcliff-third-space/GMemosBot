@@ -6,6 +6,7 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"log"
 	"os"
+	"strings"
 )
 
 var bot *tgbotapi.BotAPI
@@ -61,9 +62,17 @@ func Start() {
 		createdMemo, err := memo.CreateMemo(textContent, attachments, msg.From.ID)
 		if err != nil {
 			replyContent(msg, fmt.Sprintf("操作失败: %v", err))
-		} else {
-			replyContent(msg, fmt.Sprintf("创建成功！%v", createdMemo.Name))
+			continue
 		}
+
+		splitData := strings.Split(createdMemo.Name, "/")
+
+		if len(splitData) != 2 {
+			replyContent(msg, fmt.Sprintf("创建成功！\n %v", createdMemo.Name))
+			continue
+		}
+
+		replyContent(msg, fmt.Sprintf("创建成功！\n %s/m/%v", memo.ServerBaseUrl, splitData[1]))
 	}
 }
 
